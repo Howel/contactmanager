@@ -3,7 +3,7 @@ ContactManager.module('ContactsApp.Show', function(Show, ContactManager, Backbon
   return Show.Controller = {
     showContact: function(id) {
       var fetchingContact, loadingView;
-      loadingView = new ContactManager.Common.Views.Loading({
+      loadingView = new ContactManager.ContactsApp.Common.Views.Loading({
         title: 'Artificial Loading Delay'
       });
       ContactManager.mainRegion.show(loadingView);

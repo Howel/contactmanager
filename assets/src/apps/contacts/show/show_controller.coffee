@@ -2,7 +2,7 @@ ContactManager.module 'ContactsApp.Show',
   (Show, ContactManager, Backbone, Marionette, $, _) ->
     Show.Controller =
       showContact: (id) ->
-        loadingView = new ContactManager.Common.Views.Loading
+        loadingView = new ContactManager.ContactsApp.Common.Views.Loading
           title: 'Artificial Loading Delay'
 
         ContactManager.mainRegion.show(loadingView)
