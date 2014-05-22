@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Marionette Contact Manager</title>
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/application.css">
+</head>
+<body>
+
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <span class="navbar-brand">Contact manager</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="main-region" class="container">
+    <p>
+      Here is static content in the web page. You'll notice that it gets
+      replaced by our app as soon as we start it.
+    </p>
+  </div>
+
+  <div id="dialog-region" class="container"></div>
+
+  <script type="text/template" id="contact-list">
+    <thead>
+      <tr><th>First Name</th><th>Last Name</th><th></th></tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </script>
+
+  <script type="text/template" id="contact-list-item">
+    <td><%- firstName %></td>
+    <td><%- lastName %></td>
+    <td>
+      <a href="#/contacts/<%- id %>" class="btn btn-default btn-sm js-show">
+        <i class="glyphicon glyphicon-eye-open"></i>
+        Show
+      </a>
+      <a href="#/contacts/<%- id %>/edit" class="btn btn-default btn-sm js-edit">
+        <i class="glyphicon glyphicon-pencil"></i>
+        Edit
+      </a>
+      <button class="btn btn-default btn-sm js-remove">
+        <i class="glyphicon glyphicon-trash"></i>
+        Delete
+      </button>
+    </td>
+  </script>
+
+  <script type="text/template" id="contact-view">
+    <h1><%- firstName %> <%- lastName %></h1>
+    <p><strong>Phone number:</strong> <%- phoneNumber %></p>
+    <a href="#contacts/<%- id %>/edit" class="btn btn-small js-edit">
+      <i class="icon-pencil"></i>
+        Edit this contact
+    </a>
+  </script>
+
+  <script type="text/template" id="missing-contact-view">
+    <div class="alert alert-danger">This contact does not exist!</div>
+  </script>
+
+  <script type="text/template" id="loading-view">
+    <h1><%- title %></h1>
+    <p><%- message %></p>
+    <div id="spinner" class="spinner"></div>
+  </script>
+
+  <script type="text/template" id="contact-form">
+    <form>
+      <div class="control-group">
+        <label for="contact-firstName" class="control-label">
+          First name:</label>
+          <input id="contact-firstName" name="firstName"
+          type="text" value="<%- firstName %>"/>
+        </div>
+        <div class="control-group">
+         <label for="contact-lastName" class="control-label">
+           Last name:</label>
+           <input id="contact-lastName" name="lastName"
+           type="text" value="<%- lastName %>"/>
+         </div>
+         <div class="control-group">
+           <label for="contact-phoneNumber" class="control-label">
+             Phone number:</label>
+             <input id="contact-phoneNumber" name="phoneNumber"
+             type="text" value="<%- phoneNumber %>"/>
+           </div>
+           <button class="btn btn-primary js-submit">Save</button>
+         </form>
+       </script>
+
+       <script type="text/template" id="contact-list-layout">
+       <div id="contacts-region"></div>
+       <div id="panel-region"></div>
+       </script>
+
+       <script type="text/template" id="contact-list-panel">
+        <button class="btn btn-primary js-new">New contact</button>
+        <form id="filter-form" class="form-search form-inline pull-right">
+          <div class="input-append">
+            <input type="text" class="span2 search-query js-filter-criterion">
+            <button type="submit" class="btn">Filter contacts</button>
+          </div>
+        </form>
+       </script>
+       <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/json5/0.3.0/json5.min.js"></script>
+       <script src="http://underscorejs.org/underscore.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.7/backbone.localStorage-min.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.syphon/0.4.1/backbone.syphon.min.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.8.0/backbone.marionette.min.js"></script>
+       <script src="assets/js/vendor/spin.js"></script>
+       <script src="assets/js/vendor/spin.jquery.js"></script>
+       <script src="assets/js/app.js"></script>
+       <script src="assets/js/apps/config/storage/localstorage.js"></script>
+       <script src="assets/js/entities/contact.js"></script>
+       <script src="assets/js/common/views.js"></script>
+       <script src="assets/js/apps/contacts/contacts_app.js"></script>
+       <script src="assets/js/apps/contacts/list/list_controller.js"></script>
+       <script src="assets/js/apps/contacts/list/list_view.js"></script>
+       <script src="assets/js/apps/contacts/show/show_controller.js"></script>
+       <script src="assets/js/apps/contacts/show/show_view.js"></script>
+       <script src="./assets/js/apps/contacts/edit/edit_view.js"></script>
+       <script src="./assets/js/apps/contacts/edit/edit_controller.js"></script>
+       <script src="./assets/js/apps/contacts/new/new_view.js"></script>
+
+       <script type="text/javascript">
+        ContactManager.start()
+      </script>
+    </body>
+    </html>
